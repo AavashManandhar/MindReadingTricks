@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Reading Trick</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        p {
+            font-size: 16px;
+            color: #34495e;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            width: 80%;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mind Reading Trick</h1>
+    <p>Think of a two-digit number between 31 and 99 (without any zeros). We'll work through some steps!</p>
+
+    <div id="step1">
+        <p>Step 1: Combine the digits of your number. For example, if you chose 44, you add 4 + 4 = 8.</p>
+        <p>Enter the result after combining your digits:</p>
+        <input type="number" id="combinedNumber" placeholder="Result of combining" required>
+        <button onclick="nextStep(1)">Next Step</button>
+    </div>
+
+    <div id="step2" style="display:none;">
+        <p>Step 2: Subtract the number you just calculated from your original number.</p>
+        <p>Next, enter one digit from the result you got. For example, if you got 56, you can choose either 5 or 6.</p>
+        <input type="number" id="chosenDigit" placeholder="Enter a digit" required>
+        <button onclick="showResult()">Get Result</button>
+    </div>
+
+    <div id="result" style="display:none;">
+        <h2>Your other digit is: <span id="otherDigit"></span></h2>
+    </div>
+</div>
+
+<script>
+    let originalNumber = 0;
+    let combinedResult = 0;
+
+    function nextStep(step) {
+     
+        if (step === 1) {
+            combinedResult = parseInt(document.getElementById('combinedNumber').value);
+            if (isNaN(combinedResult) || combinedResult < 1 || combinedResult > 18) {
+                alert("Please enter a valid result between 1 and 18.");
+                return;
+            }
+
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+    }
+
+    function showResult() {
+        const chosenDigit = parseInt(document.getElementById('chosenDigit').value);
+        if (isNaN(chosenDigit) || chosenDigit < 0 || chosenDigit > 9) {
+            alert("Please enter a valid digit between 0 and 9.");
+            return;
+        }
+
+        let otherDigit = 9 - chosenDigit;
+        document.getElementById('otherDigit').textContent = otherDigit;
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
